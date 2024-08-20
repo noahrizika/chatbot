@@ -85,7 +85,14 @@ This web app is intended for individual use. Hence, there is no authentication o
 
 I used PascalCase for component folders / files and camelCase for all other folders and files.
 
-All chatbot-specific components, variables and functions (excluding database calls) are defined and centralized in the components/ChatBot folder. Components are organized by feature. Sub-components that are only used by one component (ie: Popup.tsx) are in its parent component's folder.
+ChatBot components are organized by feature. Sub-components that are only used by one component (ie: Popup.tsx) are in its parent component's folder.
+
+*Server-Side:*
+Showing the conversation history to the user is rendered serverside. Initially, I tried to show the most recent conversation by updating the component using from 'next/router', but after a series of errors, pivotted to passing the groupID via url (instead of lifting state up) and rerendering the page on each interaction. In a later iteration, I'd instead implement revalidatePath to avoid needing a whole page refresh.
+Instead of storing the current conversation on the client and on supabase, all conversations are only available via supabase, which simplifies the code.
+
+*Client-Side:*
+User interaction components (ie: Interaction and ChooseConversation's sub components) are client-side, since the entire component is solely responsive for user interactivity.
 
 To ensure the Popup component can be reusable, the function for handling the onClick event for each of the Popup component's buttons is defined outside of the Popup component.
 
